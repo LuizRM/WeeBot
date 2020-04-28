@@ -5,8 +5,16 @@ from random import randint
 from discord.ext import commands
 from dotenv import load_dotenv
 
+#CONSTANTS DEFINITION
+kasino_gifs = ["https://gfycat.com/bettervacantarrowworm",
+"https://gfycat.com/harmlessbrightirishsetter",
+"https://gfycat.com/brownvacanteeve",
+"https://gfycat.com/grippingunfinishediberianchiffchaff"]
+
+frases=["AEEEE KASINAAAO","VAI DIJEEI","AS BALADAS","SUCESSO IN-TER-NACIONAL","O SOM DA NOITE","KASINO AEEEEE","ARREBENTA"]
+
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('DISCORD_TOKEN')      #TOKEN for the bot's login
 GUILD = os.getenv('DISCORD_GUILD')
 
 
@@ -14,15 +22,9 @@ bot = commands.Bot(command_prefix='!')
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
+    print(f'{bot.user} is connected to the following guilds:')
     for guild in bot.guilds:
-        if guild.name == GUILD:
-            break
-
-    print(f'{bot.user} is connected to the following guild:\n'
-        f'{guild.name}(id: {guild.id})')
-
-    members = '\n - '.join([member.name for member in guild.members])
-    print(f'Guild Members:\n - {members}')
+        print(f'{guild.name}(id: {guild.id})\n')
 
 @bot.event
 async def on_command_error(ctx,error):
@@ -51,8 +53,9 @@ async def marcus(ctx):
 
 @bot.command(name='kasino',help='Este comando serve para invocar Gilberto Barros e seu convidado mais ilustre, Kasino',brief='AEEE KASINAAAO')
 async def kasino(ctx):
-    frases=["AEEEE KASINAAAO","VAI DIJEEI","AS BALADAS","SUCESSO IN-TER-NACIONAL","O SOM DA NOITE","KASINO AEEEEE","ARREBENTA"]
-    resultado = frases[randint(0,len(frases)-1)]
-    await ctx.send(resultado)
+    frase = frases[randint(0,len(frases)-1)]
+    gif = kasino_gifs[randint(0,len(frases)-1)]
+    await ctx.send(frase)
+    await ctx.send(gif)
 
 bot.run(TOKEN)

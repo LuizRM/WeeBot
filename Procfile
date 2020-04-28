@@ -1,1 +1,1 @@
-python WeeBot.py
+worker: python WeeBot.py

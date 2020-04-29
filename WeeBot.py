@@ -11,7 +11,8 @@ from dotenv import load_dotenv
 kasino_gifs = ["https://gfycat.com/bettervacantarrowworm",
 "https://gfycat.com/harmlessbrightirishsetter",
 "https://gfycat.com/brownvacanteeve",
-"https://gfycat.com/grippingunfinishediberianchiffchaff"]
+"https://gfycat.com/grippingunfinishediberianchiffchaff",
+"https://gfycat.com/decisivesoftbarnswallow"]
 
 frases=["AEEEE KASINAAAO","VAI DIJEEI","AS BALADAS","SUCESSO IN-TER-NACIONAL","O SOM DA NOITE","KASINO AEEEEE","ARREBENTA"]
 

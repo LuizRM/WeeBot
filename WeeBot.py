@@ -20,11 +20,11 @@ frases=["AEEEE KASINAAAO","VAI DIJEEI","AS BALADAS","SUCESSO IN-TER-NACIONAL","O
 #ENVIRONMENT SETTINGS
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')      #TOKEN for the bot's login
-GUILD = os.getenv('DISCORD_GUILD')
+REDDIT_SECRET = os.getenv('REDDIT_SECRET')
 
 reddit = praw.Reddit(client_id='Ipmh7JRwQcNMNA',
-                         client_secret="7lhfK2BGbidMt3X8nFDAc2fk5qo",
-                         user_agent='prawtutorialV1')
+                         client_secret=REDDIT_SECRET,
+                         user_agent='my_agent')
 
 
 bot = commands.Bot(command_prefix='!')

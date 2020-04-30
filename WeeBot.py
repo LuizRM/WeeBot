@@ -37,6 +37,7 @@ async def on_ready():
 
 @bot.event
 async def on_command_error(ctx,error):
+    print(f"Command error! Guild ID:{ctx.guild.id}")
     if isinstance(error, commands.CommandNotFound):
         await ctx.send("Esse comando não é válido, seu animal. Sabe ler? Então digita `!help` pra aprender a usar esse bot")
 
@@ -83,11 +84,13 @@ async def kasino(ctx):
 
 @bot.command(name='olhos',help='Viu algo que se arrependeu? Receba uma imagem ou gif com a solução: desinfetante visual',brief='Limpa seus olhos')
 async def olhos(ctx):
-    eyebleach = reddit.subreddit("eyebleach")
-    hot = eyebleach.hot(limit=10)
+    eyebleach = reddit.subreddit("eyebleach")   #Creates a new isinstance of eyebleach subreddit
+    hot = eyebleach.hot(limit=10)               #Fetches 10 posts from its hot section
     posts = []
+    print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
     for submission in hot:
         posts.append((submission.title,submission.url))
+    print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
     resultado = posts[randint(0,len(posts)-1)]
     print(resultado)
     await ctx.send(resultado[0])

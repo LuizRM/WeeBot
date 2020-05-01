@@ -121,7 +121,7 @@ async def olhos(ctx):
 @bot.command(name='8ball',help='Tem uma decisão difícil a ser tomada?Pergunte à gloriosa 8ball',brief='Pergunte à 8ball')
 async def ball(ctx):
     resposta = bola[randint(0,len(bola)-1)]
-    await ctx.send(resposta)
+    await ctx.send(f":8ball: {resposta}")
 
 @bot.command(name='clear',help="Limpa todas as mensagens do canal")
 async def clear(ctx):

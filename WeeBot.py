@@ -67,7 +67,7 @@ async def on_command_error(ctx,error):
 async def porcentagem(ctx):
     print("Chega pra nois bão")
     for member in ctx.guild.members:
-        if member.name != bot.user.name:
+        if not (member.bot):
             resultado = randint(0,100)
             resposta = f"- {member.name} é {resultado}% gay"
             await ctx.send(resposta)

@@ -107,7 +107,7 @@ async def kasino(ctx):
 @bot.command(name='olhos',help='Viu algo que se arrependeu? Receba uma imagem ou gif com a solução: desinfetante visual',brief='Limpa seus olhos')
 async def olhos(ctx):
     eyebleach = reddit.subreddit("eyebleach")   #Creates a new isinstance of eyebleach subreddit
-    hot = eyebleach.hot(limit=10)               #Fetches 10 posts from its hot section
+    hot = eyebleach.hot(limit=20)               #Fetches 10 posts from its hot section
     posts = []
     print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
     for submission in hot:
@@ -121,7 +121,7 @@ async def olhos(ctx):
 @bot.command(name='gorto',help='Uma imagem fresquinha de um gato gordo',brief='Gatos gordos')
 async def olhos(ctx):
     chonkers = reddit.subreddit("chonkers")    #Creates a new isinstance of eyebleach subreddit
-    hot = chonkers.hot(limit=10)               #Fetches 10 posts from its hot section
+    hot = chonkers.hot(limit=20)               #Fetches 10 posts from its hot section
     posts = []
     print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
     for submission in hot:

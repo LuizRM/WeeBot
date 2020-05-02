@@ -118,6 +118,20 @@ async def olhos(ctx):
     await ctx.send(resultado[0])
     await ctx.send(resultado[1])
 
+@bot.command(name='gorto',help='Uma imagem fresquinha de um gato gordo',brief='Gatos gordos')
+async def olhos(ctx):
+    chonkers = reddit.subreddit("chonkers")    #Creates a new isinstance of eyebleach subreddit
+    hot = chonkers.hot(limit=10)               #Fetches 10 posts from its hot section
+    posts = []
+    print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
+    for submission in hot:
+        posts.append((submission.title,submission.url))
+    print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
+    resultado = posts[randint(0,len(posts)-1)]
+    print(resultado)
+    await ctx.send(resultado[0])
+    await ctx.send(resultado[1])
+
 @bot.command(name='8ball',help='Tem uma decisão difícil a ser tomada?Pergunte à gloriosa 8ball',brief='Pergunte à 8ball')
 async def ball(ctx):
     resposta = bola[randint(0,len(bola)-1)]

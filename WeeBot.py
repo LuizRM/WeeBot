@@ -4,7 +4,7 @@ import os
 from random import randint,choices
 import praw
 
-from discord import File
+from discord import File, Embed, Colour
 from discord.ext import commands
 from dotenv import load_dotenv
 import urllib.request
@@ -117,12 +117,14 @@ async def olhos(ctx):
     posts = []
     print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
     for submission in hot:
-        posts.append((submission.title,submission.url))
+        posts.append((submission.title,submission.url,submission.author))
     print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
     resultado = posts[randint(0,len(posts)-1)]
     print(resultado)
-    await ctx.send(resultado[0])
-    await ctx.send(resultado[1])
+    post = Embed(title=resultado[0],colour=Colour.teal())
+    post.set_image(url=resultado[1])
+    post.set_footer(text=f'From user {resultado[2]} @ Reddit')
+    await ctx.send(embed=post)
 
 @bot.command(name='chonk',help='Uma imagem fresquinha de um gato gordo',brief='Gatos gordos')
 async def gordos(ctx):
@@ -131,12 +133,14 @@ async def gordos(ctx):
     posts = []
     print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
     for submission in hot:
-        posts.append((submission.title,submission.url))
+        posts.append((submission.title,submission.url,submission.author))
     print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
     resultado = posts[randint(0,len(posts)-1)]
     print(resultado)
-    await ctx.send(resultado[0])
-    await ctx.send(resultado[1])
+    post = Embed(title=resultado[0],colour=Colour.teal())
+    post.set_image(url=resultado[1])
+    post.set_footer(text=f'From user {resultado[2]} @ Reddit')
+    await ctx.send(embed=post)
 
 @bot.command(name='8ball',help='Tem uma decisão difícil a ser tomada?Pergunte à gloriosa 8ball',brief='Pergunte à 8ball')
 async def ball(ctx):
@@ -145,7 +149,7 @@ async def ball(ctx):
 
 @bot.command(name='maisteco',help="Digite o comando + o link direto para a imagem a ser adicionada às imagens do teco teco e peteleco",brief="Adiciona imagens ao teco teco")
 async def imagem(ctx, link:str):
-    nome = "teco" + link.split('/')[-1]
+    nome = "teco/" + link.split('/')[-1]
     urllib.request.urlretrieve(link,nome)
 
 @bot.command(name='tecoteco',help='ganhe uma amostra grátis das belas fantasias da turma do teco teco e peteleco',brief='Imagem do Teco Teco')
@@ -153,7 +157,7 @@ async def teco(ctx):
     diretorio = os.listdir("teco")
     resultado = "teco/" + diretorio[randint(0,len(diretorio)-1)]
     arquivo = File(resultado)
-    await ctx.send(file=arquivo)
+    await ctx.send(arquivo)
 
 @bot.command(name='clear',help="Limpa todas as mensagens do canal")
 async def clear(ctx):

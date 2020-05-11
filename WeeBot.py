@@ -11,11 +11,11 @@ import urllib.request
 import string
 
 #LINKS DEFINITION
-kasino_gifs = ["https://gfycat.com/bettervacantarrowworm",
-"https://gfycat.com/harmlessbrightirishsetter",
-"https://gfycat.com/brownvacanteeve",
-"https://gfycat.com/grippingunfinishediberianchiffchaff",
-"https://gfycat.com/decisivesoftbarnswallow"]
+kasino_gifs = ["https://thumbs.gfycat.com/BetterVacantArrowworm-size_restricted.gif",
+"https://thumbs.gfycat.com/HarmlessBrightIrishsetter-size_restricted.gif",
+"https://thumbs.gfycat.com/BrownVacantEeve-size_restricted.gif",
+"https://thumbs.gfycat.com/GrippingUnfinishedIberianchiffchaff-size_restricted.gif",
+"https://thumbs.gfycat.com/DecisiveSoftBarnswallow-size_restricted.gif",]
 
 frases=["AEEEE KASINAAAO","VAI DIJEEI","AS BALADAS","SUCESSO IN-TER-NACIONAL","O SOM DA NOITE","KASINO AEEEEE","ARREBENTA"]
 
@@ -91,9 +91,10 @@ async def marcus(ctx):
 @bot.command(name='kasino',help='Este comando serve para invocar Gilberto Barros e seu convidado mais ilustre, Kasino',brief='AEEE KASINAAAO')
 async def kasino(ctx):
     frase = frases[randint(0,len(frases)-1)]
-    gif = kasino_gifs[randint(0,len(frases)-1)]
-    await ctx.send(frase)
-    await ctx.send(gif)
+    gif = kasino_gifs[randint(0,len(kasino_gifs)-1)]
+    kasinao = Embed(title=frase,colour=Colour.green())
+    kasinao.set_image(url=gif)
+    await ctx.send(embed=kasinao)
 
 #Comandos para streamar musica. Não funcionaram, então por enquanto estão parados aqui
 # @bot.command(name='urss',help='Está na hora de tomar os meios de produção?Deixa que o bot aqui ajuda na ambientação.',brief='GLÓRIA À MÃE RUSSIA')

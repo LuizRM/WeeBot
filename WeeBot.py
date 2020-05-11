@@ -98,7 +98,7 @@ async def kasino(ctx):
 #Comandos para streamar musica. Não funcionaram, então por enquanto estão parados aqui
 # @bot.command(name='urss',help='Está na hora de tomar os meios de produção?Deixa que o bot aqui ajuda na ambientação.',brief='GLÓRIA À MÃE RUSSIA')
 # async def urss(ctx):
-#     autor = ctx.author
+#     autor = ctx.author,submission.shortlink
 #     voice_client = await autor.voice.channel.connect()
 #     print(f"{autor.name} solicitou musica do bot no canal {voice_client.channel.name}")
     #https://www.youtube.com/watch?v=4whPRKpbA4Qs
@@ -116,33 +116,49 @@ async def olhos(ctx):
     hot = eyebleach.hot(limit=20)               #Fetches 10 posts from its hot section
     posts = []
     print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
-    for submission in hot:
-        posts.append((submission.title,submission.url,submission.author))
+    for submission in hot:                                                  #iterates through the post list and stores in a nice array
+        posts.append((submission.title,submission.url,submission.author,submission.shortlink))
     print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
-    resultado = posts[randint(0,len(posts)-1)]
+    resultado = posts[randint(0,len(posts)-1)]                              #selects a random post
     print(resultado)
-    post = Embed(title=resultado[0],colour=Colour.teal())
+    post = Embed(title=resultado[0],colour=Colour.teal(),description=resultado[3])
     post.set_image(url=resultado[1])
     post.set_footer(text=f'From user {resultado[2]} @ Reddit')
     await ctx.send(embed=post)
 
 @bot.command(name='chonk',help='Uma imagem fresquinha de um gato gordo',brief='Gatos gordos')
 async def gordos(ctx):
-    chonkers = reddit.subreddit("chonkers")    #Creates a new isinstance of eyebleach subreddit
+    chonkers = reddit.subreddit("chonkers")    #Creates a new isinstance of chonkers subreddit
     hot = chonkers.hot(limit=20)               #Fetches 10 posts from its hot section
     posts = []
     print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
-    for submission in hot:
-        posts.append((submission.title,submission.url,submission.author))
+    for submission in hot:                                                  #iterates through the post list and stores in a nice array
+        posts.append((submission.title,submission.url,submission.author,submission.shortlink))
     print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
-    resultado = posts[randint(0,len(posts)-1)]
-    print(resultado)
-    post = Embed(title=resultado[0],colour=Colour.teal())
+    resultado = posts[randint(0,len(posts)-1)]                              #selects a random post
+    print(resultado)    #just a debbug print, carry on
+    post = Embed(title=resultado[0],colour=Colour.teal(),description=resultado[3])
     post.set_image(url=resultado[1])
     post.set_footer(text=f'From user {resultado[2]} @ Reddit')
     await ctx.send(embed=post)
 
-@bot.command(name='8ball',help='Tem uma decisão difícil a ser tomada?Pergunte à gloriosa 8ball',brief='Pergunte à 8ball')
+@bot.command(name='snek',help='Quem diria que cobras podem ser legais? Ganhe uma imagem de uma com esse comando',brief='Cobrinhas')
+async def gordos(ctx):
+    sneks = reddit.subreddit("sneks")        #Creates a new isinstance of sneks subreddit
+    hot = sneks.hot(limit=20)                #Fetches 10 posts from its hot section
+    posts = []
+    print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
+    for submission in hot:
+        posts.append((submission.title,submission.url,submission.author,submission.shortlink))
+    print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
+    resultado = posts[randint(0,len(posts)-1)]
+    print(resultado)
+    post = Embed(title=resultado[0],colour=Colour.teal(),description=resultado[3])
+    post.set_image(url=resultado[1])
+    post.set_footer(text=f'From user {resultado[2]} @ Reddit')
+    await ctx.send(embed=post)
+
+@bot.command(name='8ball',help='Tem uma decisão difícil a ser tomada? Pergunte à gloriosa 8ball',brief='Pergunte à 8ball')
 async def ball(ctx):
     resposta = bola[randint(0,len(bola)-1)]
     await ctx.send(f":8ball: {resposta}")

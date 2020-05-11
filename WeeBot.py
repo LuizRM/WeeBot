@@ -145,13 +145,15 @@ async def ball(ctx):
 
 @bot.command(name='maisteco',help="Digite o comando + o link direto para a imagem a ser adicionada às imagens do teco teco e peteleco",brief="Adiciona imagens ao teco teco")
 async def imagem(ctx, link:str):
-    nome = "teco" + link.split('/')[-1]
+    nome = "teco/" + link.split('/')[-1]
     urllib.request.urlretrieve(link,nome)
 
 @bot.command(name='tecoteco',help='ganhe uma amostra grátis das belas fantasias da turma do teco teco e peteleco',brief='Imagem do Teco Teco')
 async def teco(ctx):
     diretorio = os.listdir("teco")
+    print(diretorio)
     resultado = "teco/" + diretorio[randint(0,len(diretorio)-1)]
+    print(resultado)
     arquivo = File(resultado)
     await ctx.send(file=arquivo)
 

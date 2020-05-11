@@ -159,7 +159,7 @@ async def teco(ctx):
     resultado = "teco/" + diretorio[randint(0,len(diretorio)-1)]
     print(resultado)
     arquivo = File(resultado)
-    await ctx.send(arquivo)
+    await ctx.send(file=arquivo)
 
 @bot.command(name='clear',help="Limpa todas as mensagens do canal")
 async def clear(ctx):

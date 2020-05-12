@@ -50,6 +50,19 @@ reddit = praw.Reddit(client_id='Ipmh7JRwQcNMNA',
                          client_secret=REDDIT_SECRET,
                          user_agent='my_agent')
 
+#Reddit Function
+def fetch_reddit(ctx, sreddit):
+    sub = reddit.subreddit(sreddit)           #Creates a new isinstance of the subreddit
+    hot = sub.hot(limit=30)                     #Fetches 10 posts from its hot section
+    posts = []
+    print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
+    for submission in hot:                                                  #Iterates through the post list and stores in a nice array,
+        posts.append(submission)                                            #since reddit returns an iterable but not an array.
+    print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
+    resultado = posts[randint(0,len(posts)-1)]                              #Selects a random post
+    print((resultado.title,resultado.url,resultado.author,resultado.shortlink))     #Just a debug print, carry on
+    return resultado
+
 #----------------------------------------------------------BOT COMMANDS-------------------------------------------------------------------
 bot = commands.Bot(command_prefix='!')
 @bot.event
@@ -113,50 +126,26 @@ async def kasino(ctx):
 
 @bot.command(name='olhos',help='Viu algo que se arrependeu? Receba uma imagem ou gif com a solução: desinfetante visual',brief='Limpa seus olhos')
 async def olhos(ctx):
-    eyebleach = reddit.subreddit("eyebleach")   #Creates a new isinstance of eyebleach subreddit
-    hot = eyebleach.hot(limit=20)               #Fetches 10 posts from its hot section
-    posts = []
-    print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
-    for submission in hot:                                                  #iterates through the post list and stores in a nice array
-        posts.append((submission.title,submission.url,submission.author,submission.shortlink))
-    print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
-    resultado = posts[randint(0,len(posts)-1)]                              #selects a random post
-    print(resultado)
-    post = Embed(title=resultado[0],colour=Colour.teal(),description=resultado[3])
-    post.set_image(url=resultado[1])
-    post.set_footer(text=f'From user {resultado[2]} @ Reddit')
+    resultado = fetch_reddit(ctx, "eyebleach")
+    post = Embed(title=resultado.title,colour=Colour.teal(),description=resultado.shortlink)
+    post.set_image(url=resultado.url)
+    post.set_footer(text=f'From user {resultado.author} @ Reddit')
     await ctx.send(embed=post)
 
 @bot.command(name='chonk',help='Uma imagem fresquinha de um gato gordo',brief='Gatos gordos')
 async def gordos(ctx):
-    chonkers = reddit.subreddit("chonkers")    #Creates a new isinstance of chonkers subreddit
-    hot = chonkers.hot(limit=20)               #Fetches 10 posts from its hot section
-    posts = []
-    print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
-    for submission in hot:                                                  #iterates through the post list and stores in a nice array
-        posts.append((submission.title,submission.url,submission.author,submission.shortlink))
-    print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
-    resultado = posts[randint(0,len(posts)-1)]                              #selects a random post
-    print(resultado)    #just a debbug print, carry on
-    post = Embed(title=resultado[0],colour=Colour.teal(),description=resultado[3])
-    post.set_image(url=resultado[1])
-    post.set_footer(text=f'From user {resultado[2]} @ Reddit')
+    resultado = fetch_reddit(ctx,"chonkers")
+    post = Embed(title=resultado.title,colour=Colour.teal(),description=resultado.shortlink)
+    post.set_image(url=resultado.url)
+    post.set_footer(text=f'From user {resultado.author} @ Reddit')
     await ctx.send(embed=post)
 
 @bot.command(name='snek',help='Quem diria que cobras podem ser legais? Ganhe uma imagem de uma com esse comando',brief='Cobrinhas')
 async def gordos(ctx):
-    sneks = reddit.subreddit("sneks")        #Creates a new isinstance of sneks subreddit
-    hot = sneks.hot(limit=20)                #Fetches 10 posts from its hot section
-    posts = []
-    print(f"[Reddit]Carregando posts... (Guild ID:{ctx.guild.id})")
-    for submission in hot:
-        posts.append((submission.title,submission.url,submission.author,submission.shortlink))
-    print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
-    resultado = posts[randint(0,len(posts)-1)]
-    print(resultado)
-    post = Embed(title=resultado[0],colour=Colour.teal(),description=resultado[3])
-    post.set_image(url=resultado[1])
-    post.set_footer(text=f'From user {resultado[2]} @ Reddit')
+    resultado = fetch_reddit(ctx,"sneks")
+    post = Embed(title=resultado.title,colour=Colour.teal(),description=resultado.shortlink)
+    post.set_image(url=resultado.url)
+    post.set_footer(text=f'From user {resultado.author} @ Reddit')
     await ctx.send(embed=post)
 
 @bot.command(name='8ball',help='Tem uma decisão difícil a ser tomada? Pergunte à gloriosa 8ball',brief='Pergunte à 8ball')

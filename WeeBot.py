@@ -9,13 +9,14 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import urllib.request
 import string
+import re
 
 #LINKS DEFINITION
 kasino_gifs = ["https://thumbs.gfycat.com/BetterVacantArrowworm-size_restricted.gif",
 "https://thumbs.gfycat.com/HarmlessBrightIrishsetter-size_restricted.gif",
 "https://thumbs.gfycat.com/BrownVacantEeve-size_restricted.gif",
 "https://thumbs.gfycat.com/GrippingUnfinishedIberianchiffchaff-size_restricted.gif",
-"https://thumbs.gfycat.com/DecisiveSoftBarnswallow-size_restricted.gif",]
+"https://thumbs.gfycat.com/DecisiveSoftBarnswallow-size_restricted.gif"]
 
 frases=["AEEEE KASINAAAO","VAI DIJEEI","AS BALADAS","SUCESSO IN-TER-NACIONAL","O SOM DA NOITE","KASINO AEEEEE","ARREBENTA"]
 
@@ -50,6 +51,13 @@ reddit = praw.Reddit(client_id='Ipmh7JRwQcNMNA',
                          client_secret=REDDIT_SECRET,
                          user_agent='my_agent')
 
+#Imgur link fix
+def imgur(link):
+    link = link.split("/")
+    new_link = "i." + link[2] + "/" + link[3] + ".jpg"
+    return new_link
+
+
 #Reddit Function
 def fetch_reddit(ctx, sreddit):
     sub = reddit.subreddit(sreddit)           #Creates a new isinstance of the subreddit
@@ -60,6 +68,18 @@ def fetch_reddit(ctx, sreddit):
         posts.append(submission)                                            #since reddit returns an iterable but not an array.
     print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
     resultado = posts[randint(0,len(posts)-1)]                              #Selects a random post
+    if (re.search(".*v.reddit.*",resultado.url)) or (re.search("gifv$",resultado.url)) or (re.search(".*gfycat.*",resultado.url)):
+        formato_suportado = False
+    else:
+        formato_suportado = True
+    while not (formato_suportado):
+        resultado = posts[randint(0,len(posts)-1)]
+        if (re.search(".*v.reddit.*",resultado.url)) or (re.search("gifv$",resultado.url)):
+            formato_suportado = False
+        else:
+            formato_suportado = True
+    if re.search("^https://imgur.com",resultado.url):
+        resultado.url = imgur(resultado.url)
     print((resultado.title,resultado.url,resultado.author,resultado.shortlink))     #Just a debug print, carry on
     return resultado
 
@@ -153,10 +173,6 @@ async def ball(ctx):
     resposta = bola[randint(0,len(bola)-1)]
     await ctx.send(f":8ball: {resposta}")
 
-@bot.command(name='maisteco',help="Digite o comando + o link direto para a imagem a ser adicionada às imagens do teco teco e peteleco",brief="Adiciona imagens ao teco teco")
-async def imagem(ctx, link:str):
-    nome = "teco/" + link.split('/')[-1]
-    urllib.request.urlretrieve(link,nome)
 
 @bot.command(name='tecoteco',help='ganhe uma amostra grátis das belas fantasias da turma do teco teco e peteleco',brief='Imagem do Teco Teco')
 async def teco(ctx):

@@ -174,14 +174,20 @@ async def ball(ctx):
     await ctx.send(f":8ball: {resposta}")
 
 
-@bot.command(name='tecoteco',help='ganhe uma amostra grátis das belas fantasias da turma do teco teco e peteleco',brief='Imagem do Teco Teco')
-async def teco(ctx):
+@bot.command(name='tecoteco',help='Ganhe uma amostra grátis das belas fantasias da turma do teco teco e peteleco. Digite um número após o comando para receber várias',brief='Imagem do Teco Teco')
+async def teco(ctx, *args: int):
     diretorio = os.listdir("teco")
-    print(diretorio)
-    resultado = "teco/" + diretorio[randint(0,len(diretorio)-1)]
-    print(resultado)
-    arquivo = File(resultado)
-    await ctx.send(file=arquivo)
+    i = 1
+    if len(args) == 0:
+        numero = 1
+    else:
+        numero = args[0]
+    while i <= numero:
+        resultado = "teco/" + diretorio[randint(0,len(diretorio)-1)]
+        print(resultado)
+        arquivo = File(resultado)
+        await ctx.send(file=arquivo)
+        i += 1
 
 @bot.command(name='clear',help="Limpa todas as mensagens do canal")
 async def clear(ctx):

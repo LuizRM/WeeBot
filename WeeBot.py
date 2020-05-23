@@ -67,14 +67,10 @@ def fetch_reddit(ctx, sreddit):
     for submission in hot:                                                  #Iterates through the post list and stores in a nice array,
         posts.append(submission)                                            #since reddit returns an iterable but not an array.
     print(f"[Reddit]Posts carregados! (Guild ID:{ctx.guild.id})")
-    resultado = posts[randint(0,len(posts)-1)]                              #Selects a random post
-    if (re.search(".*v.reddit.*",resultado.url)) or (re.search("gifv$",resultado.url)) or (re.search(".*gfycat.*",resultado.url)):
-        formato_suportado = False
-    else:
-        formato_suportado = True
+    formato_suportado = False
     while not (formato_suportado):
-        resultado = posts[randint(0,len(posts)-1)]
-        if (re.search(".*v.reddit.*",resultado.url)) or (re.search("gifv$",resultado.url)):
+        resultado = posts[randint(0,len(posts)-1)]  #selects a random post
+        if (re.search(".*v.reddit.*",resultado.url)) or (re.search("gifv$",resultado.url)) or (re.search(".*gfycat.*",resultado.url)): #checks the link for unsupported formats
             formato_suportado = False
         else:
             formato_suportado = True
